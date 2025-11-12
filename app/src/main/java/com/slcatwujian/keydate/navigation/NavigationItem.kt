@@ -1,6 +1,7 @@
 package com.slcatwujian.keydate.navigation
 
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Star
@@ -11,13 +12,13 @@ import com.slcatwujian.keydate.R
  * 底部导航栏的导航项封装类
  *
  * @property route 导航路由,用于标识不同的页面
- * @property title 导航项标题,显示在底部导航栏
+ * @property titleResId 导航项标题的字符串资源ID,用于多语言支持
  * @property iconVector Material Icons 矢量图标(可选)
  * @property iconRes Drawable 资源图标(可选)
  */
 sealed class NavigationItem(
     val route: String,
-    val title: String,
+    @StringRes val titleResId: Int,
     val iconVector: ImageVector? = null,
     @DrawableRes val iconRes: Int? = null
 ) {
@@ -27,7 +28,7 @@ sealed class NavigationItem(
      */
     data object Date : NavigationItem(
         route = "date",
-        title = "日期",
+        titleResId = R.string.nav_date,
         iconRes = R.drawable.calendar_month
     )
 
@@ -37,7 +38,7 @@ sealed class NavigationItem(
      */
     data object ImportantDate : NavigationItem(
         route = "important_date",
-        title = "重要日",
+        titleResId = R.string.nav_important_date,
         iconVector = Icons.Default.Star
     )
 
@@ -47,7 +48,7 @@ sealed class NavigationItem(
      */
     data object Settings : NavigationItem(
         route = "settings",
-        title = "设置",
+        titleResId = R.string.nav_settings,
         iconVector = Icons.Default.Settings
     )
 

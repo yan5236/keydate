@@ -1,0 +1,5 @@
+<resources>
+    <!-- Date screen related strings -->
+    <string name="date_screen_title">Dates</string>
+    <string name="date_screen_placeholder">Date management functionality</string>
+</resources>

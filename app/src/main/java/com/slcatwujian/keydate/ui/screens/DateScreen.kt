@@ -6,14 +6,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.slcatwujian.keydate.R
 import com.slcatwujian.keydate.ui.theme.KeyDateTheme
 
 /**
  * 日期页面
  *
  * 用于展示和管理普通日期
- * 当前为待开发状态,仅显示占位文字
  */
 @Composable
 fun DateScreen() {
@@ -22,7 +23,7 @@ fun DateScreen() {
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        Text(text = "日期页面待开发")
+        Text(text = stringResource(R.string.date_screen_placeholder))
     }
 }
 

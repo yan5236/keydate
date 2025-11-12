@@ -1,0 +1,6 @@
+<resources>
+    <!-- Navigation bar related strings -->
+    <string name="nav_date">Dates</string>
+    <string name="nav_important_date">Important</string>
+    <string name="nav_settings">Settings</string>
+</resources>

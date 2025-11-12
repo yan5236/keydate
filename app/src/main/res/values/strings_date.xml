@@ -1,0 +1,5 @@
+<resources>
+    <!-- 日期页面相关字符串 -->
+    <string name="date_screen_title">日期</string>
+    <string name="date_screen_placeholder">日期管理功能</string>
+</resources>

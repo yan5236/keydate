@@ -1,5 +1,6 @@
 package com.slcatwujian.keydate
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -21,11 +22,12 @@ import androidx.navigation.compose.rememberNavController
 import com.slcatwujian.keydate.navigation.AppNavigation
 import com.slcatwujian.keydate.navigation.NavigationItem
 import com.slcatwujian.keydate.ui.theme.KeyDateTheme
+import com.slcatwujian.keydate.utils.LanguageManager
 
 /**
  * 主Activity
  *
- * 应用的入口点,负责设置主题和底部导航栏
+ * 应用的入口点,负责设置主题、语言和底部导航栏
  */
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,6 +38,12 @@ class MainActivity : ComponentActivity() {
                 MainScreen()
             }
         }
+    }
+
+    override fun attachBaseContext(newBase: Context) {
+        // 应用保存的语言设置
+        val context = LanguageManager.applySavedLanguage(newBase)
+        super.attachBaseContext(context)
     }
 }
 
@@ -59,6 +67,9 @@ fun MainScreen() {
 
                 // 遍历所有导航项并显示
                 NavigationItem.items.forEach { item ->
+                    // 获取本地化的标题文本
+                    val title = androidx.compose.ui.res.stringResource(item.titleResId)
+
                     NavigationBarItem(
                         icon = {
                             // 根据图标类型使用不同的加载方式
@@ -67,19 +78,19 @@ fun MainScreen() {
                                 item.iconVector != null -> {
                                     Icon(
                                         imageVector = item.iconVector,
-                                        contentDescription = item.title
+                                        contentDescription = title
                                     )
                                 }
                                 // 如果有 Drawable 资源图标,使用资源图标
                                 item.iconRes != null -> {
                                     Icon(
                                         painter = painterResource(id = item.iconRes),
-                                        contentDescription = item.title
+                                        contentDescription = title
                                     )
                                 }
                             }
                         },
-                        label = { Text(item.title) },
+                        label = { Text(title) },
                         // 判断当前项是否被选中
                         selected = currentDestination?.hierarchy?.any { it.route == item.route } == true,
                         onClick = {

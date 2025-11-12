@@ -1,0 +1,5 @@
+<resources>
+    <!-- 重要日页面相关字符串 -->
+    <string name="important_date_screen_title">重要日</string>
+    <string name="important_date_screen_placeholder">重要日期管理功能</string>
+</resources>

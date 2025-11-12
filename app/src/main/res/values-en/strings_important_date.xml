@@ -1,0 +1,5 @@
+<resources>
+    <!-- Important date screen related strings -->
+    <string name="important_date_screen_title">Important Dates</string>
+    <string name="important_date_screen_placeholder">Important date management functionality</string>
+</resources>
