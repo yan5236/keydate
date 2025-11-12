@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.KeyDate" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.KeyDate" parent="android:Theme.Material.Light.NoActionBar">
+        <!-- 定义控件的默认颜色，用于图标等 -->
+        <item name="colorControlNormal">#616161</item>
+    </style>
 </resources>
