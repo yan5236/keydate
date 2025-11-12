@@ -2,4 +2,29 @@
     <!-- Date screen related strings -->
     <string name="date_screen_title">Dates</string>
     <string name="date_screen_placeholder">Date management functionality</string>
+    <string name="date_add_button">Add Date</string>
+    <string name="date_empty_message">No dates yet\nTap the button below to add</string>
+
+    <!-- Date edit screen -->
+    <string name="date_edit_title_new">New Date</string>
+    <string name="date_edit_title_edit">Edit Date</string>
+    <string name="date_edit_title_label">Title</string>
+    <string name="date_edit_title_hint">Enter date title</string>
+    <string name="date_edit_content_label">Content</string>
+    <string name="date_edit_content_hint">Enter date description</string>
+    <string name="date_edit_date_label">Date</string>
+    <string name="date_edit_time_label">Time</string>
+    <string name="date_edit_reminder_label">Reminder</string>
+    <string name="date_edit_reminder_disabled">(Coming soon)</string>
+    <string name="date_edit_save">Save</string>
+    <string name="date_edit_cancel">Cancel</string>
+    <string name="date_edit_select_date">Select Date</string>
+    <string name="date_edit_select_time">Select Time</string>
+
+    <!-- Time countdown format -->
+    <string name="time_remaining_format">%1$d days %2$d hours %3$d min %4$d sec remaining</string>
+    <string name="time_expired_format">%1$d days %2$d hours %3$d min %4$d sec passed</string>
+
+    <!-- Date card -->
+    <string name="date_card_delete">Delete</string>
 </resources>

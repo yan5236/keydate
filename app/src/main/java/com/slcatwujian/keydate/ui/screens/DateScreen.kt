@@ -1,29 +1,137 @@
 package com.slcatwujian.keydate.ui.screens
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.slcatwujian.keydate.R
+import com.slcatwujian.keydate.data.models.DateItem
+import com.slcatwujian.keydate.ui.components.DateCard
+import com.slcatwujian.keydate.ui.components.DateEditBottomSheet
 import com.slcatwujian.keydate.ui.theme.KeyDateTheme
+import com.slcatwujian.keydate.viewmodel.DateViewModel
+import kotlinx.coroutines.delay
 
 /**
  * 日期页面
  *
  * 用于展示和管理普通日期
+ * 功能包括:
+ * - 显示所有日期的列表（按时间远近排序）
+ * - 实时倒计时显示
+ * - 添加新日期
+ * - 删除日期
  */
 @Composable
-fun DateScreen() {
-    // 使用 Box 布局将文字居中显示
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(text = stringResource(R.string.date_screen_placeholder))
+fun DateScreen(
+    viewModel: DateViewModel = viewModel()
+) {
+    val dateItems by viewModel.dateItems.collectAsState()
+    val currentTime by viewModel.currentTime.collectAsState()
+    var showEditSheet by remember { mutableStateOf(false) }
+
+    // 实时更新当前时间（每秒更新一次）
+    LaunchedEffect(Unit) {
+        while (true) {
+            viewModel.updateCurrentTime()
+            delay(1000) // 每秒更新
+        }
+    }
+
+    Scaffold(
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = { showEditSheet = true },
+                containerColor = MaterialTheme.colorScheme.primary
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.add),
+                    contentDescription = stringResource(R.string.date_add_button)
+                )
+            }
+        }
+    ) { paddingValues ->
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+        ) {
+            if (dateItems.isEmpty()) {
+                // 空状态提示
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(32.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        text = stringResource(R.string.date_empty_message),
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        textAlign = TextAlign.Center
+                    )
+                }
+            } else {
+                // 日期列表
+                LazyColumn(
+                    contentPadding = PaddingValues(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    items(
+                        items = dateItems,
+                        key = { it.id }
+                    ) { dateItem ->
+                        DateCard(
+                            dateItem = dateItem,
+                            currentTime = currentTime,
+                            onDelete = {
+                                viewModel.deleteDateItem(dateItem)
+                            }
+                        )
+                    }
+                }
+            }
+        }
+    }
+
+    // 编辑BottomSheet
+    if (showEditSheet) {
+        DateEditBottomSheet(
+            onDismiss = { showEditSheet = false },
+            onSave = { title, content, timestamp ->
+                val newDateItem = DateItem(
+                    title = title,
+                    content = content,
+                    targetDate = timestamp
+                )
+                viewModel.insertDateItem(newDateItem)
+            }
+        )
     }
 }
 
