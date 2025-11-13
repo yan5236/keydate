@@ -1,0 +1,78 @@
+{
+  "year": 2025,
+  "region": "china",
+  "holidays": [
+    {
+      "id": "new_year",
+      "name_cn": "元旦",
+      "name_en": "New Year's Day",
+      "date": "2025-01-01"
+    },
+    {
+      "id": "new_year_eve",
+      "name_cn": "除夕",
+      "name_en": "New Year's Eve",
+      "date": "2025-01-28"
+    },
+    {
+      "id": "spring_festival",
+      "name_cn": "春节",
+      "name_en": "Spring Festival",
+      "date": "2025-01-29"
+    },
+    {
+      "id": "spring_festival_day2",
+      "name_cn": "春节假期第二天",
+      "name_en": "Spring Festival Day 2",
+      "date": "2025-01-30"
+    },
+    {
+      "id": "spring_festival_day3",
+      "name_cn": "春节假期第三天",
+      "name_en": "Spring Festival Day 3",
+      "date": "2025-01-31"
+    },
+    {
+      "id": "qingming",
+      "name_cn": "清明节",
+      "name_en": "Qingming Festival",
+      "date": "2025-04-04"
+    },
+    {
+      "id": "labor_day",
+      "name_cn": "劳动节",
+      "name_en": "Labor Day",
+      "date": "2025-05-01"
+    },
+    {
+      "id": "dragon_boat",
+      "name_cn": "端午节",
+      "name_en": "Dragon Boat Festival",
+      "date": "2025-05-31"
+    },
+    {
+      "id": "mid_autumn",
+      "name_cn": "中秋节",
+      "name_en": "Mid-Autumn Festival",
+      "date": "2025-10-06"
+    },
+    {
+      "id": "national_day",
+      "name_cn": "国庆节",
+      "name_en": "National Day",
+      "date": "2025-10-01"
+    },
+    {
+      "id": "national_day_day2",
+      "name_cn": "国庆节假期第二天",
+      "name_en": "National Day Day 2",
+      "date": "2025-10-02"
+    },
+    {
+      "id": "national_day_day3",
+      "name_cn": "国庆节假期第三天",
+      "name_en": "National Day Day 3",
+      "date": "2025-10-03"
+    }
+  ]
+}

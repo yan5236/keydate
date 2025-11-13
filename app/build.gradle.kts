@@ -60,6 +60,9 @@ dependencies {
     // ViewModel Compose支持
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 
+    // Gson JSON解析
+    implementation(libs.gson)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

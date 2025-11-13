@@ -36,9 +36,9 @@ class DateViewModel(application: Application) : AndroidViewModel(application) {
     val currentTime: StateFlow<Long> = _currentTime.asStateFlow()
 
     init {
-        // 监听数据库变化并排序
+        // 监听数据库变化并排序（只显示日期页面的日期）
         viewModelScope.launch {
-            repository.allDateItems.collect { items ->
+            repository.datePageItems.collect { items ->
                 _dateItems.value = sortDateItems(items)
             }
         }

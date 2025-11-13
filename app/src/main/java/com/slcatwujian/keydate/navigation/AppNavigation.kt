@@ -5,6 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.slcatwujian.keydate.ui.screens.AboutScreen
 import com.slcatwujian.keydate.ui.screens.DateScreen
 import com.slcatwujian.keydate.ui.screens.ImportantDateScreen
 import com.slcatwujian.keydate.ui.screens.SettingsScreen
@@ -39,7 +40,20 @@ fun AppNavigation(
 
         // 设置页面路由
         composable(NavigationItem.Settings.route) {
-            SettingsScreen()
+            SettingsScreen(
+                onNavigateToAbout = {
+                    navController.navigate("about")
+                }
+            )
+        }
+
+        // 关于页面路由
+        composable("about") {
+            AboutScreen(
+                onNavigateBack = {
+                    navController.popBackStack()
+                }
+            )
         }
     }
 }

@@ -8,4 +8,37 @@
     <string name="settings_language_system">Follow System</string>
     <string name="settings_language_chinese">简体中文</string>
     <string name="settings_language_english">English</string>
+
+    <!-- Clear data -->
+    <string name="clear_data">Clear Data</string>
+    <string name="clear_data_desc">Clear data saved in the app</string>
+    <string name="clear_data_dialog_title">Clear Data</string>
+    <string name="clear_data_dialog_message">Please select the type of data to clear</string>
+    <string name="clear_dates">Clear Date Data</string>
+    <string name="clear_important_dates">Clear Important Date Data</string>
+    <string name="clear_dates_confirm_title">Confirm Clear Date Data</string>
+    <string name="clear_dates_confirm_message">Are you sure you want to clear all date data? This action cannot be undone.</string>
+    <string name="clear_important_dates_confirm_title">Confirm Clear Important Date Data</string>
+    <string name="clear_important_dates_confirm_message">Are you sure you want to clear all important date data? This action cannot be undone.</string>
+    <string name="clear_success">Clear successful</string>
+    <string name="clear_failed">Clear failed: %s</string>
+    <string name="confirm">Confirm</string>
+
+    <!-- Other settings -->
+    <string name="settings_other">Other</string>
+
+    <!-- About page -->
+    <string name="about_title">About</string>
+    <string name="about_desc">View app information and version</string>
+    <string name="version">Version %s</string>
+    <string name="open_source_code">Open Source Code</string>
+    <string name="terms_of_use">Terms of Use</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="copyright">© 2025 Key Date. All rights reserved.</string>
+    <string name="back">Back</string>
+
+    <!-- URL links -->
+    <string name="github_url">https://github.com/yourusername/keydate</string>
+    <string name="terms_url">https://github.com/yourusername/keydate/blob/main/TERMS.md</string>
+    <string name="privacy_url">https://github.com/yourusername/keydate/blob/main/PRIVACY.md</string>
 </resources>

@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -57,56 +58,68 @@ fun MainScreen() {
     // 创建导航控制器
     val navController = rememberNavController()
 
+    // 获取当前导航状态
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
+
+    // 判断是否应该显示底部导航栏（只在主要页面显示）
+    // 当路由为空时默认显示底部栏（应用启动时）
+    val shouldShowBottomBar = currentDestination?.route?.let { route ->
+        route in listOf(
+            NavigationItem.Date.route,
+            NavigationItem.ImportantDate.route,
+            NavigationItem.Settings.route
+        )
+    } ?: true
+
     Scaffold(
         bottomBar = {
-            // 底部导航栏
-            NavigationBar {
-                // 获取当前导航状态
-                val navBackStackEntry by navController.currentBackStackEntryAsState()
-                val currentDestination = navBackStackEntry?.destination
+            // 只在主要页面显示底部导航栏
+            if (shouldShowBottomBar) {
+                NavigationBar {
+                    // 遍历所有导航项并显示
+                    NavigationItem.items.forEach { item ->
+                        // 获取本地化的标题文本
+                        val title = stringResource(item.titleResId)
 
-                // 遍历所有导航项并显示
-                NavigationItem.items.forEach { item ->
-                    // 获取本地化的标题文本
-                    val title = androidx.compose.ui.res.stringResource(item.titleResId)
-
-                    NavigationBarItem(
-                        icon = {
-                            // 根据图标类型使用不同的加载方式
-                            when {
-                                // 如果有 ImageVector 图标,使用矢量图标
-                                item.iconVector != null -> {
-                                    Icon(
-                                        imageVector = item.iconVector,
-                                        contentDescription = title
-                                    )
+                        NavigationBarItem(
+                            icon = {
+                                // 根据图标类型使用不同的加载方式
+                                when {
+                                    // 如果有 ImageVector 图标,使用矢量图标
+                                    item.iconVector != null -> {
+                                        Icon(
+                                            imageVector = item.iconVector,
+                                            contentDescription = title
+                                        )
+                                    }
+                                    // 如果有 Drawable 资源图标,使用资源图标
+                                    item.iconRes != null -> {
+                                        Icon(
+                                            painter = painterResource(id = item.iconRes),
+                                            contentDescription = title
+                                        )
+                                    }
                                 }
-                                // 如果有 Drawable 资源图标,使用资源图标
-                                item.iconRes != null -> {
-                                    Icon(
-                                        painter = painterResource(id = item.iconRes),
-                                        contentDescription = title
-                                    )
+                            },
+                            label = { Text(title) },
+                            // 判断当前项是否被选中
+                            selected = currentDestination?.hierarchy?.any { it.route == item.route } == true,
+                            onClick = {
+                                // 点击导航项时跳转到对应页面
+                                navController.navigate(item.route) {
+                                    // 避免在导航栈中创建多个相同实例
+                                    popUpTo(navController.graph.findStartDestination().id) {
+                                        saveState = true
+                                    }
+                                    // 避免重复点击相同项时创建多个副本
+                                    launchSingleTop = true
+                                    // 恢复状态
+                                    restoreState = true
                                 }
                             }
-                        },
-                        label = { Text(title) },
-                        // 判断当前项是否被选中
-                        selected = currentDestination?.hierarchy?.any { it.route == item.route } == true,
-                        onClick = {
-                            // 点击导航项时跳转到对应页面
-                            navController.navigate(item.route) {
-                                // 避免在导航栈中创建多个相同实例
-                                popUpTo(navController.graph.findStartDestination().id) {
-                                    saveState = true
-                                }
-                                // 避免重复点击相同项时创建多个副本
-                                launchSingleTop = true
-                                // 恢复状态
-                                restoreState = true
-                            }
-                        }
-                    )
+                        )
+                    }
                 }
             }
         }

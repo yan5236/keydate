@@ -8,11 +8,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -53,6 +55,9 @@ fun DateScreen(
     val dateItems by viewModel.dateItems.collectAsState()
     val currentTime by viewModel.currentTime.collectAsState()
     var showEditSheet by remember { mutableStateOf(false) }
+    var editingDateItem by remember { mutableStateOf<DateItem?>(null) }
+    var showDeleteDialog by remember { mutableStateOf(false) }
+    var deletingDateItem by remember { mutableStateOf<DateItem?>(null) }
 
     // 实时更新当前时间（每秒更新一次）
     LaunchedEffect(Unit) {
@@ -65,7 +70,10 @@ fun DateScreen(
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { showEditSheet = true },
+                onClick = {
+                    editingDateItem = null
+                    showEditSheet = true
+                },
                 containerColor = MaterialTheme.colorScheme.primary
             ) {
                 Icon(
@@ -109,8 +117,13 @@ fun DateScreen(
                         DateCard(
                             dateItem = dateItem,
                             currentTime = currentTime,
+                            onEdit = {
+                                editingDateItem = dateItem
+                                showEditSheet = true
+                            },
                             onDelete = {
-                                viewModel.deleteDateItem(dateItem)
+                                deletingDateItem = dateItem
+                                showDeleteDialog = true
                             }
                         )
                     }
@@ -122,14 +135,68 @@ fun DateScreen(
     // 编辑BottomSheet
     if (showEditSheet) {
         DateEditBottomSheet(
-            onDismiss = { showEditSheet = false },
-            onSave = { title, content, timestamp ->
-                val newDateItem = DateItem(
-                    title = title,
-                    content = content,
-                    targetDate = timestamp
+            dateItem = editingDateItem,
+            onDismiss = {
+                showEditSheet = false
+                editingDateItem = null
+            },
+            onSave = { dateItem ->
+                if (editingDateItem != null) {
+                    // 编辑模式：更新现有项
+                    viewModel.updateDateItem(dateItem)
+                } else {
+                    // 新建模式：插入新项
+                    viewModel.insertDateItem(dateItem)
+                }
+                showEditSheet = false
+                editingDateItem = null
+            }
+        )
+    }
+
+    // 删除确认对话框
+    if (showDeleteDialog && deletingDateItem != null) {
+        AlertDialog(
+            onDismissRequest = {
+                showDeleteDialog = false
+                deletingDateItem = null
+            },
+            icon = {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_warning),
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.error
                 )
-                viewModel.insertDateItem(newDateItem)
+            },
+            title = {
+                Text(text = stringResource(R.string.delete_dialog_title))
+            },
+            text = {
+                Text(text = stringResource(R.string.delete_dialog_message, deletingDateItem!!.title))
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        viewModel.deleteDateItem(deletingDateItem!!)
+                        showDeleteDialog = false
+                        deletingDateItem = null
+                    }
+                ) {
+                    Text(
+                        text = stringResource(R.string.delete_dialog_confirm),
+                        color = MaterialTheme.colorScheme.error
+                    )
+                }
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = {
+                        showDeleteDialog = false
+                        deletingDateItem = null
+                    }
+                ) {
+                    Text(text = stringResource(R.string.delete_dialog_cancel))
+                }
             }
         )
     }

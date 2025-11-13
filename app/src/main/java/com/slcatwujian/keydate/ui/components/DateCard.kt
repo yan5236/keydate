@@ -1,5 +1,6 @@
 package com.slcatwujian.keydate.ui.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -34,6 +35,7 @@ import com.slcatwujian.keydate.utils.DateTimeUtils
  *
  * @param dateItem 日期项数据
  * @param currentTime 当前时间戳（用于计算倒计时）
+ * @param onEdit 编辑回调
  * @param onDelete 删除回调
  * @param modifier 修饰符
  */
@@ -41,6 +43,7 @@ import com.slcatwujian.keydate.utils.DateTimeUtils
 fun DateCard(
     dateItem: DateItem,
     currentTime: Long,
+    onEdit: () -> Unit,
     onDelete: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -52,7 +55,9 @@ fun DateCard(
     val dateText = DateTimeUtils.formatDateWithWeekday(dateItem.targetDate)
 
     Card(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier
+            .fillMaxWidth()
+            .clickable { onEdit() },
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
         colors = CardDefaults.cardColors(
             containerColor = if (timeDiff.isExpired) {
@@ -82,6 +87,7 @@ fun DateCard(
                     overflow = TextOverflow.Ellipsis
                 )
 
+                // 删除按钮
                 IconButton(onClick = onDelete) {
                     Icon(
                         imageVector = Icons.Default.Delete,
@@ -145,6 +151,7 @@ fun DateCardPreview() {
                     targetDate = System.currentTimeMillis() + 7 * 24 * 60 * 60 * 1000L // 7天后
                 ),
                 currentTime = System.currentTimeMillis(),
+                onEdit = {},
                 onDelete = {},
                 modifier = Modifier.padding(16.dp)
             )
@@ -160,6 +167,7 @@ fun DateCardPreview() {
                     targetDate = System.currentTimeMillis() - 2 * 24 * 60 * 60 * 1000L // 2天前
                 ),
                 currentTime = System.currentTimeMillis(),
+                onEdit = {},
                 onDelete = {},
                 modifier = Modifier.padding(16.dp)
             )

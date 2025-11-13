@@ -8,4 +8,37 @@
     <string name="settings_language_system">跟随系统</string>
     <string name="settings_language_chinese">简体中文</string>
     <string name="settings_language_english">English</string>
+
+    <!-- 清除数据 -->
+    <string name="clear_data">清除数据</string>
+    <string name="clear_data_desc">清除应用中保存的数据</string>
+    <string name="clear_data_dialog_title">清除数据</string>
+    <string name="clear_data_dialog_message">请选择要清除的数据类型</string>
+    <string name="clear_dates">清除日期数据</string>
+    <string name="clear_important_dates">清除重要日期数据</string>
+    <string name="clear_dates_confirm_title">确认清除日期数据</string>
+    <string name="clear_dates_confirm_message">确定要清除所有日期数据吗？此操作不可恢复。</string>
+    <string name="clear_important_dates_confirm_title">确认清除重要日期数据</string>
+    <string name="clear_important_dates_confirm_message">确定要清除所有重要日期数据吗？此操作不可恢复。</string>
+    <string name="clear_success">清除成功</string>
+    <string name="clear_failed">清除失败：%s</string>
+    <string name="confirm">确认</string>
+
+    <!-- 其他设置 -->
+    <string name="settings_other">其他</string>
+
+    <!-- 关于页面 -->
+    <string name="about_title">关于</string>
+    <string name="about_desc">查看应用信息和版本</string>
+    <string name="version">版本 %s</string>
+    <string name="open_source_code">开源代码</string>
+    <string name="terms_of_use">使用协议</string>
+    <string name="privacy_policy">隐私协议</string>
+    <string name="copyright">© 2025 Key Date. All rights reserved.</string>
+    <string name="back">返回</string>
+
+    <!-- URL 链接 -->
+    <string name="github_url">https://github.com/yourusername/keydate</string>
+    <string name="terms_url">https://github.com/yourusername/keydate/blob/main/TERMS.md</string>
+    <string name="privacy_url">https://github.com/yourusername/keydate/blob/main/PRIVACY.md</string>
 </resources>

@@ -2,7 +2,7 @@ package com.slcatwujian.keydate.utils
 
 import android.content.Context
 import android.content.res.Configuration
-import android.os.Build
+import androidx.core.content.edit
 import java.util.Locale
 
 /**
@@ -23,10 +23,9 @@ object LanguageManager {
      * 保存语言设置
      */
     fun saveLanguage(context: Context, languageCode: String) {
-        context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-            .edit()
-            .putString(KEY_LANGUAGE, languageCode)
-            .apply()
+        context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit {
+            putString(KEY_LANGUAGE, languageCode)
+        }
     }
 
     /**

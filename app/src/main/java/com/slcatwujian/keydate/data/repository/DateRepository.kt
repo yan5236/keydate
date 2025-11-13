@@ -10,13 +10,28 @@ import kotlinx.coroutines.flow.Flow
  *
  * @property dateItemDao 日期项DAO对象
  */
-class DateRepository(private val dateItemDao: DateItemDao) {
+class DateRepository(val dateItemDao: DateItemDao) {
 
     /**
      * 获取所有日期项的Flow
      * @return 日期项列表的Flow，当数据库数据变化时会自动更新
      */
     val allDateItems: Flow<List<DateItem>> = dateItemDao.getAllDateItems()
+
+    /**
+     * 获取所有节假日的Flow
+     */
+    val allHolidays: Flow<List<DateItem>> = dateItemDao.getAllHolidays()
+
+    /**
+     * 获取日期页面的日期项（DATE类型）
+     */
+    val datePageItems: Flow<List<DateItem>> = dateItemDao.getDatePageItems()
+
+    /**
+     * 获取重要日期页面的日期项（IMPORTANT_DATE 和 SYSTEM_HOLIDAY 类型）
+     */
+    val importantDateItems: Flow<List<DateItem>> = dateItemDao.getImportantDateItems()
 
     /**
      * 根据ID获取单个日期项
@@ -57,5 +72,13 @@ class DateRepository(private val dateItemDao: DateItemDao) {
      */
     suspend fun deleteAll() {
         dateItemDao.deleteAll()
+    }
+
+    /**
+     * 删除指定类型的所有日期项
+     * @param type 日期类型
+     */
+    suspend fun deleteByType(type: String) {
+        dateItemDao.deleteByType(type)
     }
 }

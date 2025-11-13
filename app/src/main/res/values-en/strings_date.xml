@@ -26,5 +26,47 @@
     <string name="time_expired_format">%1$d days %2$d hours %3$d min %4$d sec passed</string>
 
     <!-- Date card -->
+    <string name="date_card_edit">Edit</string>
     <string name="date_card_delete">Delete</string>
+
+    <!-- Delete confirmation dialog -->
+    <string name="delete_dialog_title">Confirm Delete</string>
+    <string name="delete_dialog_message">Are you sure you want to delete \"%1$s\"? This action cannot be undone.</string>
+    <string name="delete_dialog_confirm">Delete</string>
+    <string name="delete_dialog_cancel">Cancel</string>
+    <string name="delete_date_title">Confirm Delete</string>
+    <string name="delete_date_message">Are you sure you want to delete \"%1$s\"?</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+
+    <!-- Important Date Screen -->
+    <string name="next_important_date">Next Important Date</string>
+    <string name="no_important_dates">No important dates</string>
+    <string name="add_important_date_hint">Tap the button below to add important dates</string>
+    <string name="date_remaining">Remaining</string>
+    <string name="date_expired">Passed</string>
+    <string name="add_date">Add Date</string>
+
+    <!-- Time Units -->
+    <string name="time_unit_days">days</string>
+    <string name="time_unit_hours">hours</string>
+    <string name="time_unit_minutes">minutes</string>
+    <string name="time_unit_seconds">seconds</string>
+
+    <!-- Smart Countdown Format -->
+    <string name="countdown_remaining">%1$d %2$s remaining</string>
+    <string name="countdown_expired">%1$d %2$s passed</string>
+
+    <!-- Settings Screen - Basic Settings -->
+    <string name="settings_basic">Basic Settings</string>
+    <string name="import_builtin_holidays">Import Built-in Holidays</string>
+    <string name="import_builtin_holidays_desc">Import 2025 China or Global holidays</string>
+    <string name="import_holidays_from_file">Import Holidays from File</string>
+    <string name="import_holidays_from_file_desc">Select JSON file to import custom holidays</string>
+    <string name="select_holiday_region">Select Holiday Region</string>
+    <string name="select_holiday_year">Select Year</string>
+    <string name="region_china">China</string>
+    <string name="region_global">Global</string>
+    <string name="import_success">Successfully imported %1$d holidays</string>
+    <string name="import_failed">Import failed: %1$s</string>
 </resources>

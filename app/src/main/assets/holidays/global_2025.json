@@ -1,0 +1,78 @@
+{
+  "year": 2025,
+  "region": "western",
+  "holidays": [
+    {
+      "id": "new_year",
+      "name_cn": "元旦",
+      "name_en": "New Year's Day",
+      "date": "2025-01-01"
+    },
+    {
+      "id": "valentine",
+      "name_cn": "情人节",
+      "name_en": "Valentine's Day",
+      "date": "2025-02-14"
+    },
+    {
+      "id": "st_patrick",
+      "name_cn": "圣帕特里克节",
+      "name_en": "St. Patrick's Day",
+      "date": "2025-03-17"
+    },
+    {
+      "id": "easter",
+      "name_cn": "复活节",
+      "name_en": "Easter Sunday",
+      "date": "2025-04-20"
+    },
+    {
+      "id": "mother_day",
+      "name_cn": "母亲节",
+      "name_en": "Mother's Day",
+      "date": "2025-05-11"
+    },
+    {
+      "id": "father_day",
+      "name_cn": "父亲节",
+      "name_en": "Father's Day",
+      "date": "2025-06-15"
+    },
+    {
+      "id": "independence_day",
+      "name_cn": "美国独立日",
+      "name_en": "Independence Day",
+      "date": "2025-07-04"
+    },
+    {
+      "id": "halloween",
+      "name_cn": "万圣节",
+      "name_en": "Halloween",
+      "date": "2025-10-31"
+    },
+    {
+      "id": "thanksgiving",
+      "name_cn": "感恩节",
+      "name_en": "Thanksgiving",
+      "date": "2025-11-27"
+    },
+    {
+      "id": "christmas_eve",
+      "name_cn": "平安夜",
+      "name_en": "Christmas Eve",
+      "date": "2025-12-24"
+    },
+    {
+      "id": "christmas",
+      "name_cn": "圣诞节",
+      "name_en": "Christmas Day",
+      "date": "2025-12-25"
+    },
+    {
+      "id": "new_year_eve",
+      "name_cn": "新年前夜",
+      "name_en": "New Year's Eve",
+      "date": "2025-12-31"
+    }
+  ]
+}

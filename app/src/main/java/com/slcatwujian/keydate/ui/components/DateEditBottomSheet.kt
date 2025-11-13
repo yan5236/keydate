@@ -43,6 +43,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.slcatwujian.keydate.R
+import com.slcatwujian.keydate.data.models.DateItem
 import com.slcatwujian.keydate.ui.theme.KeyDateTheme
 import com.slcatwujian.keydate.utils.DateTimeUtils
 import java.util.Calendar
@@ -51,31 +52,29 @@ import java.util.Calendar
  * 日期编辑BottomSheet组件
  * 提供日期项的创建和编辑功能
  *
+ * @param dateItem 要编辑的日期项（null表示新建）
+ * @param dateItemType 新建时使用的日期类型（编辑时忽略此参数）
  * @param onDismiss 关闭回调
- * @param onSave 保存回调，参数为(title, content, timestamp)
- * @param initialTitle 初始标题（编辑模式）
- * @param initialContent 初始内容（编辑模式）
- * @param initialTimestamp 初始时间戳（编辑模式）
+ * @param onSave 保存回调，参数为DateItem
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DateEditBottomSheet(
+    dateItem: DateItem? = null,
+    dateItemType: com.slcatwujian.keydate.data.models.DateItemType = com.slcatwujian.keydate.data.models.DateItemType.DATE,
     onDismiss: () -> Unit,
-    onSave: (String, String, Long) -> Unit,
-    initialTitle: String = "",
-    initialContent: String = "",
-    initialTimestamp: Long = System.currentTimeMillis()
+    onSave: (DateItem) -> Unit
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
     // 表单状态
-    var title by remember { mutableStateOf(initialTitle) }
-    var content by remember { mutableStateOf(initialContent) }
+    var title by remember { mutableStateOf(dateItem?.title ?: "") }
+    var content by remember { mutableStateOf(dateItem?.content ?: "") }
 
     // 日期时间状态
     val calendar = remember {
         Calendar.getInstance().apply {
-            timeInMillis = initialTimestamp
+            timeInMillis = dateItem?.targetDate ?: System.currentTimeMillis()
         }
     }
     var selectedYear by remember { mutableIntStateOf(calendar.get(Calendar.YEAR)) }
@@ -104,7 +103,7 @@ fun DateEditBottomSheet(
         ) {
             // 标题
             Text(
-                text = if (initialTitle.isEmpty()) {
+                text = if (dateItem == null) {
                     stringResource(R.string.date_edit_title_new)
                 } else {
                     stringResource(R.string.date_edit_title_edit)
@@ -242,8 +241,21 @@ fun DateEditBottomSheet(
                                 selectedYear, selectedMonth, selectedDay,
                                 selectedHour, selectedMinute
                             )
-                            onSave(title, content, timestamp)
-                            onDismiss()
+                            val savedItem = if (dateItem == null) {
+                                DateItem(
+                                    title = title,
+                                    content = content,
+                                    targetDate = timestamp,
+                                    type = dateItemType
+                                )
+                            } else {
+                                dateItem.copy(
+                                    title = title,
+                                    content = content,
+                                    targetDate = timestamp
+                                )
+                            }
+                            onSave(savedItem)
                         }
                     },
                     modifier = Modifier.weight(1f),
@@ -345,8 +357,9 @@ fun DateEditBottomSheet(
 fun DateEditBottomSheetPreview() {
     KeyDateTheme {
         DateEditBottomSheet(
+            dateItem = null,
             onDismiss = {},
-            onSave = { _, _, _ -> }
+            onSave = { }
         )
     }
 }

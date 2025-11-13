@@ -57,4 +57,45 @@ interface DateItemDao {
      */
     @Query("DELETE FROM date_items")
     suspend fun deleteAll()
+
+    /**
+     * 根据类型和地区删除日期项
+     * @param type 日期类型
+     * @param region 地区(可为null)
+     */
+    @Query("DELETE FROM date_items WHERE type = :type AND region = :region")
+    suspend fun deleteByTypeAndRegion(type: String, region: String?)
+
+    /**
+     * 获取指定类型和地区的日期项数量
+     * @param type 日期类型
+     * @param region 地区(可为null)
+     */
+    @Query("SELECT COUNT(*) FROM date_items WHERE type = :type AND region = :region")
+    suspend fun countByTypeAndRegion(type: String, region: String?): Int
+
+    /**
+     * 获取所有节假日(SYSTEM_HOLIDAY类型)
+     */
+    @Query("SELECT * FROM date_items WHERE type = 'SYSTEM_HOLIDAY' ORDER BY targetDate ASC")
+    fun getAllHolidays(): Flow<List<DateItem>>
+
+    /**
+     * 获取日期页面的日期项（DATE类型）
+     */
+    @Query("SELECT * FROM date_items WHERE type = 'DATE' ORDER BY targetDate ASC")
+    fun getDatePageItems(): Flow<List<DateItem>>
+
+    /**
+     * 获取重要日期页面的日期项（IMPORTANT_DATE 和 SYSTEM_HOLIDAY 类型）
+     */
+    @Query("SELECT * FROM date_items WHERE type IN ('IMPORTANT_DATE', 'SYSTEM_HOLIDAY') ORDER BY targetDate ASC")
+    fun getImportantDateItems(): Flow<List<DateItem>>
+
+    /**
+     * 删除指定类型的所有日期项
+     * @param type 日期类型
+     */
+    @Query("DELETE FROM date_items WHERE type = :type")
+    suspend fun deleteByType(type: String)
 }
